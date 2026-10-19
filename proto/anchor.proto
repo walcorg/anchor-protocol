@@ -1,0 +1,61 @@
+// Anchor Protocol v0.2 — USB transport between host and CiWi.
+// Follows the Trezor wire protocol (proto2). Message type numbers in the WALCORG range: TBD.
+// SPDX-License-Identifier: MIT
+
+syntax = "proto2";
+package walcorg.anchor;
+
+enum AnchorCurve {
+  P256      = 1;
+  SECP256K1 = 2;  // reserved until TROPIC01 firmware supports it
+}
+
+// ---------------------------------------------------------------- flow R: register a CiWi
+
+message AnchorRegisterRequest {
+  required bytes  challenge     = 1;  // 32 bytes from walcorg.com
+  required string account_id    = 2;
+  required bytes  owner_address = 3;  // 20 bytes
+}
+
+message AnchorRegisterResponse {
+  required bytes       chip_certificate = 1;  // factory X.509, DER
+  required AnchorCurve curve            = 2;
+  required bytes       public_key       = 3;  // 64 bytes, X || Y
+  required bytes       signature        = 4;  // 64 bytes, r || s (low s)
+}
+
+// ---------------------------------------------------------------- flow B: bind a shield
+
+message AnchorBindRequest {
+  required bytes bind_struct      = 1;  // ABI-encoded Bind
+  required bytes shield_signature = 2;  // 64 bytes, r || s
+}
+
+// ---------------------------------------------------------------- flow C: claim
+
+message AnchorClaimRequest {
+  required bytes  receipt_struct   = 1;  // ABI-encoded CaptureReceipt
+  required bytes  shield_signature = 2;  // 64 bytes, r || s
+  required uint64 chain_id         = 3;
+  required uint64 tx_nonce         = 4;
+  required bytes  max_fee_per_gas  = 5;
+}
+
+// ---------------------------------------------------------------- NFT profile (section 11)
+
+message AnchorNftMintRequest {
+  required bytes  record_struct    = 1;  // ABI-encoded WindowRecord
+  required bytes  shield_signature = 2;  // 64 bytes, r || s
+  required bytes  metadata_hash    = 3;  // 32 bytes, keccak256 of <tokenId>.json
+  required uint64 chain_id         = 4;
+  required uint64 tx_nonce         = 5;
+  required bytes  max_fee_per_gas  = 6;
+}
+
+// ---------------------------------------------------------------- response to B, C and NFT mint
+
+message AnchorSignatures {
+  required bytes anchor_signature = 1;  // CiWi TROPIC01 signature (Bind, Claim or NftClaim), r || s
+  required bytes signed_tx        = 2;  // owner transaction, secp256k1 by the MCU
+}

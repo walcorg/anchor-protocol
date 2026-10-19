@@ -1,0 +1,76 @@
+{
+  "protocol": "WALCORG Anchor",
+  "specVersion": "0.2",
+  "domain": {
+    "name": "WALCORG Anchor",
+    "version": "0.2",
+    "chainId": "137 (Polygon PoS) or 80002 (Amoy)",
+    "verifyingContract": "address of the verifier or collection contract"
+  },
+  "core": {
+    "CaptureReceipt": [
+      { "name": "version", "type": "uint8" },
+      { "name": "curve", "type": "uint8" },
+      { "name": "shieldId", "type": "bytes32" },
+      { "name": "owner", "type": "address" },
+      { "name": "counter", "type": "uint64" },
+      { "name": "windowStart", "type": "uint64" },
+      { "name": "windowEnd", "type": "uint64" },
+      { "name": "nodeCount", "type": "uint16" },
+      { "name": "co2Mg", "type": "uint64" },
+      { "name": "dataRoot", "type": "bytes32" },
+      { "name": "challenge", "type": "bytes32" },
+      { "name": "responseHash", "type": "bytes32" },
+      { "name": "nonce", "type": "bytes16" },
+      { "name": "fwHash", "type": "bytes32" }
+    ],
+    "Claim": [
+      { "name": "receiptHash", "type": "bytes32" },
+      { "name": "ciwiId", "type": "bytes32" },
+      { "name": "owner", "type": "address" },
+      { "name": "ciwiCounter", "type": "uint64" }
+    ],
+    "Bind": [
+      { "name": "shieldId", "type": "bytes32" },
+      { "name": "ciwiId", "type": "bytes32" },
+      { "name": "owner", "type": "address" },
+      { "name": "nonce", "type": "uint256" }
+    ],
+    "RegistryApproval": [
+      { "name": "ciwiId", "type": "bytes32" },
+      { "name": "curve", "type": "uint8" },
+      { "name": "pubX", "type": "bytes32" },
+      { "name": "pubY", "type": "bytes32" },
+      { "name": "chipSerialHash", "type": "bytes32" },
+      { "name": "owner", "type": "address" },
+      { "name": "expiry", "type": "uint64" }
+    ]
+  },
+  "nftProfile": {
+    "WindowRecord": [
+      { "name": "version", "type": "uint8" },
+      { "name": "curve", "type": "uint8" },
+      { "name": "shieldId", "type": "bytes32" },
+      { "name": "fwHash", "type": "bytes32" },
+      { "name": "tokenId", "type": "uint16" },
+      { "name": "windowStart", "type": "uint64" },
+      { "name": "windowEnd", "type": "uint64" },
+      { "name": "challengeBlock", "type": "uint64" },
+      { "name": "challenge", "type": "bytes32" },
+      { "name": "responseHash", "type": "bytes32" },
+      { "name": "dataRoot", "type": "bytes32" },
+      { "name": "nonce", "type": "bytes16" }
+    ],
+    "NftClaim": [
+      { "name": "recordHash", "type": "bytes32" },
+      { "name": "metadataHash", "type": "bytes32" },
+      { "name": "ciwiId", "type": "bytes32" },
+      { "name": "owner", "type": "address" }
+    ]
+  },
+  "identifiers": {
+    "shieldId": "keccak256(abi.encodePacked(uint8 curve, bytes32 pubX, bytes32 pubY))",
+    "ciwiId": "keccak256(abi.encodePacked(uint8 curve, bytes32 pubX, bytes32 pubY))"
+  },
+  "signatures": "P-256 ECDSA, r || s, 32 bytes each, big-endian, s <= n/2"
+}
