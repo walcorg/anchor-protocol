@@ -16,6 +16,21 @@ precompile, enforces physical capture limits and a dispute window, and only then
 > **Status: draft v0.2, open for review.** Field names, limits and encodings may change.
 > Items marked **[TBC]** in the spec depend on TROPIC01 behaviour still to be confirmed.
 
+## Custom open hardware
+
+The protocol is built for two devices designed by WALCORG. Both are open source and
+under active development.
+
+![CiWi v2.3 cold wallet: enclosure, 3.5" display, click-wheel, push button and electronics stack](docs/images/ciwi-v2.3-assembly.png)
+
+*CiWi v2.3 — assembly drawing of the cold wallet: 3.5" SPI display, touch click-wheel,
+physical confirmation button, battery and USB-C.*
+
+| CiWi main board | Node shield for Raspberry Pi Zero |
+| --- | --- |
+| ![CiWi Gen 1.1 main board](docs/images/ciwi-gen1.1-pcb.png) | ![Raspberry Pi Zero shield for the photobioreactor node](docs/images/node-shield-pi-zero.png) |
+| CiWi Gen 1.1 — STM32-based main board with display header and click-wheel cut-out. | Node shield — sits on the Raspberry Pi Zero running Clorela-Os and reads the node sensors. |
+
 ## What it guarantees, and what it does not
 
 | Guaranteed by hardware and contract | Not guaranteed (handled by caps, reference cultures and review) |
@@ -32,6 +47,7 @@ precompile, enforces physical capture limits and a dispute window, and only then
 | [`proto/anchor.proto`](proto/anchor.proto) | USB messages between host and CiWi (Trezor wire protocol, proto2) |
 | [`eip712/types.json`](eip712/types.json) | EIP-712 domain and types, machine-readable |
 | [`reference/nft-genesis-v7`](reference/nft-genesis-v7) | Reference implementation of the NFT profile: Solidity contract and 15 Hardhat tests |
+| [`docs/images`](docs/images) | Hardware renders of the CiWi and the node shield |
 | [`LICENSE-SPEC`](LICENSE-SPEC) | CC BY 4.0, for the specification text |
 | [`LICENSE`](LICENSE) | MIT, for code in this repository |
 
